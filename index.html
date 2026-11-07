@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Puzzle-Cam — Gesture Capture</title>
+  <link rel="stylesheet" href="css/styles.css">
+  
+  <!-- MediaPipe Hands & Camera Utils -->
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Main Interactive Area -->
+    <main class="viewport-container">
+      <!-- Top Header Navigation Overlay -->
+      <header class="hud-header">
+        <div class="brand">
+          <span class="brand-title">PUZZLE · CAM</span>
+          <span class="brand-separator"></span>
+          <span class="brand-subtitle">HAND-FRAME CAPTURE</span>
+        </div>
+        
+        <div class="hud-badges">
+          <!-- Live Status Indicator -->
+          <div class="badge status-badge" id="statusBadge">
+            <span class="status-dot" id="statusDot"></span>
+            <span class="status-text" id="statusText">INICIANDO CÁMARA...</span>
+          </div>
+
+          <!-- Progress Badge (Puzzle Mode) -->
+          <div class="badge progress-badge hidden" id="progressBadge">
+            <span class="progress-text" id="progressText">0 / 9 PIEZAS COLOCADAS</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Video Canvas Container -->
+      <div class="canvas-wrapper">
+        <video id="webcam" playsinline autoplay muted></video>
+        <canvas id="sceneCanvas"></canvas>
+
+        <!-- Loading Overlay -->
+        <div class="loading-overlay" id="loadingOverlay">
+          <div class="loader-spinner"></div>
+          <p id="loaderText">Cargando MediaPipe Hands & Cámara...</p>
+          <button id="loaderRetry" class="btn-retry hidden">Reintentar</button>
+        </div>
+
+        <!-- Error Notification Banner -->
+        <div class="error-banner hidden" id="errorBanner">
+          <span id="errorMessage">Error de cámara o seguimiento.</span>
+        </div>
+      </div>
+    </main>
+
+    <!-- Right Sidebar: Photobooth Strip (Tira de Fotos) -->
+    <aside class="sidebar-strip">
+      <div class="strip-header">
+        <span class="strip-title">TIRA</span>
+        <span class="strip-counter" id="galleryCount">0 / 3</span>
+      </div>
+
+      <!-- Filter Selector -->
+      <div class="filter-selector-bar">
+        <button id="filterBtn" class="btn-filter">FILTRO: <span id="filterLabel">NOIR FILM</span></button>
+      </div>
+
+      <!-- Strip Scroll Area -->
+      <div class="strip-body">
+        <div class="gallery-empty" id="galleryEmpty">
+          <p>Tus rompecabezas completados aparecerán aquí.</p>
+        </div>
+        <div class="gallery-strip" id="galleryStrip"></div>
+      </div>
+
+      <!-- Completion Banner -->
+      <div class="strip-complete-msg hidden" id="stripCompleteMsg">
+        ¡Tira de 3 fotos completa!
+      </div>
+
+      <!-- Footer Action Buttons -->
+      <div class="strip-actions">
+        <button id="downloadStripBtn" class="btn btn-primary" disabled>DESCARGAR</button>
+        <button id="resetAllBtn" class="btn btn-secondary">REINICIAR</button>
+      </div>
+    </aside>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
